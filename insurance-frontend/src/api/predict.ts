@@ -1,7 +1,8 @@
-// import type { InsuranceRequest, InsuranceResponse } from "../types/Insurance";
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
 
 export async function predictPremium(data: any) {
-  const response = await fetch("http://13.51.235.99:8000/predict", {
+  const response = await fetch(`${API_BASE_URL}/predict`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -10,9 +11,8 @@ export async function predictPremium(data: any) {
   });
 
   if (!response.ok) {
-    throw new Error("Failed to fetch prediction");
+    throw new Error(`API error: ${response.status}`);
   }
 
   return response.json();
 }
-
